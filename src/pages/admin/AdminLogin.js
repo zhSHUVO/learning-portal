@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import learningportal from "../../assets/image/learningportal.svg";
-import { useLoginMutation } from "../../features/api/auth/authApi";
+import { useLoginMutation } from "../../features/auth/authApi";
 
 function AdminLogin(props) {
     const navigate = useNavigate();
