@@ -1,9 +1,17 @@
 import React from "react";
+import { Toaster } from "react-hot-toast";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import AdminLogin from "./pages/admin/AdminLogin";
 
 function App() {
     return (
         <div>
-            <h1>hi</h1>
+            <Router>
+                <Routes>
+                    <Route path="/admin" element={<AdminLogin />} />
+                </Routes>
+            </Router>
+            <Toaster />
         </div>
     );
 }
