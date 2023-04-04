@@ -9,6 +9,7 @@ import Assignments from "./pages/admin/Assignments";
 import Dashboard from "./pages/admin/Dashboard";
 import Quizzes from "./pages/admin/Quizzes";
 import Videos from "./pages/admin/Videos";
+import UpdateVideo from "./pages/admin/UpdateVideo";
 
 function App() {
     return (
@@ -29,6 +30,7 @@ function App() {
                         element={<AssignmentMarks />}
                     />
                     <Route path="/admin/addVideo" element={<AddVideo />} />
+                    <Route path="/admin/video/update/:id" element={<UpdateVideo />} />
                 </Routes>
             </Router>
             <Toaster />

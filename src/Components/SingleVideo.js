@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useDeleteVideoMutation } from "../features/videos/videosApi";
 
-function SingleVideo({ video }) {
+function SingleVideo( {video} ) {
+    const navigate = useNavigate();
     const [deleteVideo] = useDeleteVideoMutation();
     return (
         <tbody className="divide-y divide-slate-600/50">
@@ -26,6 +28,7 @@ function SingleVideo({ video }) {
                         />
                     </svg>
                     <svg
+                        onClick={() => navigate(`/admin/video/update/${video.id}`)}
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth="1.5"

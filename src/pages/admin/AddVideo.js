@@ -28,6 +28,7 @@ function AddVideo(props) {
     return (
         <section className="py-6 bg-primary h-screen place-items-center">
             <div className="mx-auto max-w-md px-5 lg:px-0">
+                <h1 className="text-center	">Add Video</h1>
                 <form
                     className="mt-8 space-y-6"
                     onSubmit={(e) => handleSubmit(e)}

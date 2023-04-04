@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import SingleVideo from "../../Components/SingleVideo";
 import { useGetVideosQuery } from "../../features/videos/videosApi";
 
-function Videos(props) {
+function Videos() {
     const navigate = useNavigate();
 
     const { data: videos, isLoading, isError, error } = useGetVideosQuery();

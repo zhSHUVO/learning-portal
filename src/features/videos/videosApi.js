@@ -49,6 +49,40 @@ export const videosApi = apiSlice.injectEndpoints({
                 }
             },
         }),
+        getSignleVideo: builder.query({
+            query: (id) => `/videos/${id}`,
+        }),
+        updateVideo: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `/videos/${id}`,
+                method: "PATCH",
+                body: data,
+            }),
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+                const { data: updatedVideo } = await queryFulfilled;
+                dispatch(
+                    apiSlice.util.updateQueryData(
+                        "getVideos",
+                        undefined,
+                        (draft) => {
+                            const index = draft.findIndex(
+                                (video) => video.id === arg.id
+                            );
+                            draft[index] = updatedVideo;
+                        }
+                    )
+                );
+                dispatch(
+                    apiSlice.util.updateQueryData(
+                        "getVideo",
+                        arg.id.toString(),
+                        (draft) => {
+                            return updatedVideo;
+                        }
+                    )
+                );
+            },
+        }),
     }),
 });
 
@@ -56,4 +90,6 @@ export const {
     useGetVideosQuery,
     useAddVideoMutation,
     useDeleteVideoMutation,
+    useGetSignleVideoQuery,
+    useUpdateVideoMutation,
 } = videosApi;
