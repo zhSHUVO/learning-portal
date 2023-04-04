@@ -2,6 +2,7 @@ import React from "react";
 import { Toaster } from "react-hot-toast";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Nav from "./Components/Nav";
+import AddVideo from "./pages/admin/AddVideo";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AssignmentMarks from "./pages/admin/AssignmentMarks";
 import Assignments from "./pages/admin/Assignments";
@@ -27,6 +28,7 @@ function App() {
                         path="/admin/assignmentMark"
                         element={<AssignmentMarks />}
                     />
+                    <Route path="/admin/addVideo" element={<AddVideo />} />
                 </Routes>
             </Router>
             <Toaster />

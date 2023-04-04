@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import SingleVideo from "../../Components/SingleVideo";
 import { useGetVideosQuery } from "../../features/videos/videosApi";
 
 function Videos(props) {
+    const navigate = useNavigate();
+
     const { data: videos, isLoading, isError, error } = useGetVideosQuery();
 
     let content;
@@ -33,7 +36,12 @@ function Videos(props) {
             <div className="mx-auto max-w-full px-5 lg:px-20">
                 <div className="px-3 py-20 bg-opacity-10">
                     <div className="w-full flex">
-                        <button className="btn ml-auto">Add Video</button>
+                        <button
+                            onClick={(e) => navigate("/admin/addVideo")}
+                            className="btn ml-auto"
+                        >
+                            Add Video
+                        </button>
                     </div>
                     <div className="overflow-x-auto mt-4">{content}</div>
                 </div>
