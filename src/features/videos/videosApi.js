@@ -24,7 +24,36 @@ export const videosApi = apiSlice.injectEndpoints({
                 );
             },
         }),
+        deleteVideo: builder.mutation({
+            query: (id) => ({
+                url: `/videos/${id}`,
+                method: "DELETE",
+            }),
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+                const result = dispatch(
+                    apiSlice.util.updateQueryData(
+                        "getVideos",
+                        undefined,
+                        (draft) => {
+                            const index = draft.findIndex(
+                                (video) => video.id === arg
+                            );
+                            draft.splice(index, 1);
+                        }
+                    )
+                );
+                try {
+                    await queryFulfilled;
+                } catch (error) {
+                    result.undo();
+                }
+            },
+        }),
     }),
 });
 
-export const { useGetVideosQuery, useAddVideoMutation } = videosApi;
+export const {
+    useGetVideosQuery,
+    useAddVideoMutation,
+    useDeleteVideoMutation,
+} = videosApi;

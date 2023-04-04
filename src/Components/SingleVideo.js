@@ -1,6 +1,8 @@
 import React from "react";
+import { useDeleteVideoMutation } from "../features/videos/videosApi";
 
 function SingleVideo({ video }) {
+    const [deleteVideo] = useDeleteVideoMutation();
     return (
         <tbody className="divide-y divide-slate-600/50">
             <tr>
@@ -10,6 +12,7 @@ function SingleVideo({ video }) {
                 </td>
                 <td className="table-td flex gap-x-2">
                     <svg
+                        onClick={() => deleteVideo(video.id)}
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth="1.5"
