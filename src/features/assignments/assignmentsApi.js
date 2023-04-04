@@ -1,42 +1,42 @@
 import { apiSlice } from "../api/apiSlice";
 
-export const videosApi = apiSlice.injectEndpoints({
+export const assignmentsApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        getVideos: builder.query({
-            query: () => "/videos",
+        getAssignments: builder.query({
+            query: () => "/assignments",
         }),
-        addVideo: builder.mutation({
+        addAssignment: builder.mutation({
             query: (data) => ({
-                url: "/videos",
+                url: "/assignments",
                 method: "POST",
                 body: data,
             }),
             async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-                const { data: newVideo } = await queryFulfilled;
+                const { data: newAssignments } = await queryFulfilled;
                 dispatch(
                     apiSlice.util.updateQueryData(
-                        "getVideos",
+                        "getAssignments",
                         undefined,
                         (draft) => {
-                            draft.push(newVideo);
+                            draft.push(newAssignments);
                         }
                     )
                 );
             },
         }),
-        deleteVideo: builder.mutation({
+        deleteAssignment: builder.mutation({
             query: (id) => ({
-                url: `/videos/${id}`,
+                url: `/assignments/${id}`,
                 method: "DELETE",
             }),
             async onQueryStarted(arg, { queryFulfilled, dispatch }) {
                 const result = dispatch(
                     apiSlice.util.updateQueryData(
-                        "getVideos",
+                        "getAssignments",
                         undefined,
                         (draft) => {
                             const index = draft.findIndex(
-                                (video) => video.id === arg
+                                (assignment) => assignment.id === arg
                             );
                             draft.splice(index, 1);
                         }
@@ -49,35 +49,35 @@ export const videosApi = apiSlice.injectEndpoints({
                 }
             },
         }),
-        getSignleVideo: builder.query({
-            query: (id) => `/videos/${id}`,
+        getSignleAssignment: builder.query({
+            query: (id) => `/assignments/${id}`,
         }),
-        updateVideo: builder.mutation({
+        updateAssignment: builder.mutation({
             query: ({ id, data }) => ({
-                url: `/videos/${id}`,
+                url: `/assignments/${id}`,
                 method: "PATCH",
                 body: data,
             }),
             async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-                const { data: updatedVideo } = await queryFulfilled;
+                const { data: updatedAssignments } = await queryFulfilled;
                 dispatch(
                     apiSlice.util.updateQueryData(
-                        "getVideos",
+                        "getAssignments",
                         undefined,
                         (draft) => {
                             const index = draft.findIndex(
-                                (video) => video.id === arg.id
+                                (assignment) => assignment.id === arg.id
                             );
-                            draft[index] = updatedVideo;
+                            draft[index] = updatedAssignments;
                         }
                     )
                 );
                 dispatch(
                     apiSlice.util.updateQueryData(
-                        "getVideo",
+                        "getAssignments",
                         arg.id.toString(),
                         (draft) => {
-                            return updatedVideo;
+                            return updatedAssignments;
                         }
                     )
                 );
@@ -87,9 +87,9 @@ export const videosApi = apiSlice.injectEndpoints({
 });
 
 export const {
-    useGetVideosQuery,
-    useAddVideoMutation,
-    useDeleteVideoMutation,
-    useGetSignleVideoQuery,
-    useUpdateVideoMutation,
-} = videosApi;
+    useAddAssignmentMutation,
+    useDeleteAssignmentMutation,
+    useGetSignleAssignmentQuery,
+    useUpdateAssignmentMutation,
+    useGetAssignmentsQuery,
+} = assignmentsApi;
