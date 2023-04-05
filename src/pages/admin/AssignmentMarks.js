@@ -2,7 +2,7 @@ import React from "react";
 import SingleAssignmentMark from "../../Components/SingleAssignmentMark";
 import { useGetAssignmentMarksQuery } from "../../features/assignmentMarks/assignmentMarksApi";
 
-function AssignmentMarks(props) {
+function AssignmentMarks() {
     const {
         data: assignmentMarks,
         isLoading,
@@ -38,19 +38,26 @@ function AssignmentMarks(props) {
         );
     }
 
+    const total = assignmentMarks?.length;
+    const pending = assignmentMarks?.reduce(
+        (total, current) => (current.status === "pending" ? total + 1 : total),
+        0
+    );
+    const sent = total - pending;
+
     return (
         <section className="py-6 bg-primary">
             <div className="mx-auto max-w-full px-5 lg:px-20">
                 <div className="px-3 py-20 bg-opacity-10">
                     <ul className="assignment-status">
                         <li>
-                            Total <span>4</span>
+                            Total <span>{total}</span>
                         </li>
                         <li>
-                            Pending <span>3</span>
+                            Pending <span>{pending}</span>
                         </li>
                         <li>
-                            Mark Sent <span>1</span>
+                            Mark Sent <span>{sent}</span>
                         </li>
                     </ul>
                     <div className="overflow-x-auto mt-4">{content}</div>

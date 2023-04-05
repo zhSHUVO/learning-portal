@@ -59,28 +59,30 @@ export const videosApi = apiSlice.injectEndpoints({
                 body: data,
             }),
             async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-                const { data: updatedVideo } = await queryFulfilled;
-                dispatch(
-                    apiSlice.util.updateQueryData(
-                        "getVideos",
-                        undefined,
-                        (draft) => {
-                            const index = draft.findIndex(
-                                (video) => video.id === arg.id
-                            );
-                            draft[index] = updatedVideo;
-                        }
-                    )
-                );
-                dispatch(
-                    apiSlice.util.updateQueryData(
-                        "getVideo",
-                        arg.id.toString(),
-                        (draft) => {
-                            return updatedVideo;
-                        }
-                    )
-                );
+                try {
+                    const { data: updatedVideo } = await queryFulfilled;
+                    dispatch(
+                        apiSlice.util.updateQueryData(
+                            "getVideos",
+                            undefined,
+                            (draft) => {
+                                const index = draft.findIndex(
+                                    (video) => video.id === arg.id
+                                );
+                                draft[index] = updatedVideo;
+                            }
+                        )
+                    );
+                    dispatch(
+                        apiSlice.util.updateQueryData(
+                            "getVideo",
+                            arg.id.toString(),
+                            (draft) => {
+                                return updatedVideo;
+                            }
+                        )
+                    );
+                } catch {}
             },
         }),
     }),

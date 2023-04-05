@@ -10,6 +10,7 @@ import Assignments from "./pages/admin/Assignments";
 import Dashboard from "./pages/admin/Dashboard";
 import Quizzes from "./pages/admin/Quizzes";
 import UpdateAssignment from "./pages/admin/UpdateAssignment";
+import UpdateQuiz from "./pages/admin/UpdateQuiz";
 import UpdateVideo from "./pages/admin/UpdateVideo";
 import Videos from "./pages/admin/Videos";
 
@@ -30,6 +31,10 @@ function App() {
                     />
 
                     <Route path="/admin/quizzes" element={<Quizzes />} />
+                    <Route
+                        path="/admin/quiz/update/:id"
+                        element={<UpdateQuiz />}
+                    />
 
                     <Route
                         path="/admin/assignments"

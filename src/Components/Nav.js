@@ -5,8 +5,10 @@ function Nav(props) {
     const [user, setUser] = useState("");
 
     useEffect(() => {
-        const { user } = JSON.parse(localStorage.getItem("auth"));
-        setUser(user.name);
+        if (localStorage.getItem("auth") !== null) {
+            const { user } = JSON.parse(localStorage.getItem("auth"));
+            setUser(user.name);
+        }
     }, []);
 
     return (

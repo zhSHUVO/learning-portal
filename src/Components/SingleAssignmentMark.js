@@ -10,7 +10,6 @@ function SingleAssignmentMark({ assignmentMark }) {
             <tr>
                 <td className="table-td">{assignmentMark.title}</td>
                 <td className="table-td">
-                    {" "}
                     {`${new Date(
                         assignmentMark.createdAt
                     ).toLocaleDateString()} ${new Date(

@@ -34,28 +34,31 @@ export const assignmentMarksApi = apiSlice.injectEndpoints({
                 body: data,
             }),
             async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-                const { data: updatedAssignmentMark } = await queryFulfilled;
-                dispatch(
-                    apiSlice.util.updateQueryData(
-                        "getAssignmentMarks",
-                        undefined,
-                        (draft) => {
-                            const index = draft.findIndex(
-                                (assignment) => assignment.id === arg.id
-                            );
-                            draft[index] = updatedAssignmentMark;
-                        }
-                    )
-                );
-                dispatch(
-                    apiSlice.util.updateQueryData(
-                        "getAssignmentMark",
-                        arg.id.toString(),
-                        (draft) => {
-                            return updatedAssignmentMark;
-                        }
-                    )
-                );
+                try {
+                    const { data: updatedAssignmentMark } =
+                        await queryFulfilled;
+                    dispatch(
+                        apiSlice.util.updateQueryData(
+                            "getAssignmentMarks",
+                            undefined,
+                            (draft) => {
+                                const index = draft.findIndex(
+                                    (assignment) => assignment.id === arg.id
+                                );
+                                draft[index] = updatedAssignmentMark;
+                            }
+                        )
+                    );
+                    dispatch(
+                        apiSlice.util.updateQueryData(
+                            "getAssignmentMark",
+                            arg.id.toString(),
+                            (draft) => {
+                                return updatedAssignmentMark;
+                            }
+                        )
+                    );
+                } catch {}
             },
         }),
     }),
