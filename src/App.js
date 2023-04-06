@@ -13,9 +13,9 @@ import UpdateAssignment from "./pages/admin/UpdateAssignment";
 import UpdateQuiz from "./pages/admin/UpdateQuiz";
 import UpdateVideo from "./pages/admin/UpdateVideo";
 import Videos from "./pages/admin/Videos";
+import CoursePlayer from "./pages/student/CoursePlayer";
 import StudentLogin from "./pages/student/StudentLogin";
 import StudentReg from "./pages/student/StudentReg";
-import CoursePlayer from "./pages/student/CoursePlayer";
 
 function App() {
     return (
@@ -61,7 +61,10 @@ function App() {
                     {/* student */}
                     <Route path="/" element={<StudentLogin />} />
                     <Route path="/registration" element={<StudentReg />} />
-                    <Route path="/coursePlayer/:videoId" element={<CoursePlayer />} />
+                    <Route
+                        path="/courseplayer/:videoId"
+                        element={<CoursePlayer />}
+                    />
                 </Routes>
             </Router>
             <Toaster />

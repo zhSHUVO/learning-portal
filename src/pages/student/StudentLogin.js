@@ -24,7 +24,7 @@ function StudentLogin(props) {
             console.log(error);
         }
         if (data?.accessToken && data?.user) {
-            navigate("/coursePlayer/1");
+            navigate("/courseplayer/1");
         }
     }, [data, navigate, responseError, error]);
 
