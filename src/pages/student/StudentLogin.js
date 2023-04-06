@@ -3,12 +3,12 @@ import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../features/auth/authApi";
 
-function AdminLogin(props) {
-    const navigate = useNavigate();
-
+function StudentLogin(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+
+    const navigate = useNavigate();
 
     const [login, { data, isLoading, error: responseError }] =
         useLoginMutation();
@@ -20,26 +20,25 @@ function AdminLogin(props) {
     useEffect(() => {
         if (responseError?.data) {
             setError(responseError.data);
-            console.log(error);
             errorToast();
+            console.log(error);
         }
         if (data?.accessToken && data?.user) {
-            navigate("/admin/dashboard");
-            loggedInToast();
+            navigate(`/${data.user.id}/1/coursePlayer`);
         }
-    }, [responseError, data, navigate, error]);
+    }, [data, navigate, responseError, error]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setError("");
         login({ email, password });
-        console.log(email, password);
+        loggedInToast();
     };
     return (
         <section className="py-6 bg-primary h-screen grid place-items-center">
             <div className="mx-auto max-w-md px-5 lg:px-0">
                 <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-100">
-                    Sign into Admin Account
+                    Sign into Student Account
                 </h2>
 
                 <form
@@ -84,10 +83,10 @@ function AdminLogin(props) {
                     <div className="flex items-center justify-end">
                         <div className="text-sm">
                             <Link
-                                href="#"
+                                to="/registration"
                                 className="font-medium text-violet-600 hover:text-violet-500"
                             >
-                                Forgot your password?
+                                Create New Account
                             </Link>
                         </div>
                     </div>
@@ -107,4 +106,4 @@ function AdminLogin(props) {
     );
 }
 
-export default AdminLogin;
+export default StudentLogin;

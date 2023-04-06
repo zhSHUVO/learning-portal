@@ -98,7 +98,7 @@ function UpdateQuizForm({ quiz }) {
                             videos.map((video) => (
                                 <option
                                     key={video.id}
-                                    defaultValue={
+                                    selected={
                                         video.title === oldVideo_title
                                             ? "selected"
                                             : null

@@ -13,6 +13,7 @@ import UpdateAssignment from "./pages/admin/UpdateAssignment";
 import UpdateQuiz from "./pages/admin/UpdateQuiz";
 import UpdateVideo from "./pages/admin/UpdateVideo";
 import Videos from "./pages/admin/Videos";
+import StudentLogin from "./pages/student/StudentLogin";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
             <Nav />
             <Router>
                 <Routes>
+                    {/* admin */}
                     <Route path="/admin" element={<AdminLogin />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
 
@@ -53,6 +55,9 @@ function App() {
                         path="/admin/assignmentMark"
                         element={<AssignmentMarks />}
                     />
+
+                    {/* student */}
+                    <Route path="/" element={<StudentLogin />} />
                 </Routes>
             </Router>
             <Toaster />
