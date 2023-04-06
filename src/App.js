@@ -14,6 +14,7 @@ import UpdateQuiz from "./pages/admin/UpdateQuiz";
 import UpdateVideo from "./pages/admin/UpdateVideo";
 import Videos from "./pages/admin/Videos";
 import StudentLogin from "./pages/student/StudentLogin";
+import StudentReg from "./pages/student/StudentReg";
 
 function App() {
     return (
@@ -58,6 +59,7 @@ function App() {
 
                     {/* student */}
                     <Route path="/" element={<StudentLogin />} />
+                    <Route path="/registration" element={<StudentReg />} />
                 </Routes>
             </Router>
             <Toaster />
