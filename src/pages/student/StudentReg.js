@@ -26,11 +26,11 @@ function StudentReg(props) {
             console.log(error);
         }
         if (data?.accessToken && data?.user) {
-            navigate(`/${data.user.id}/1/coursePlayer`);
+            navigate("/coursePlayer/1");
             console.log(data);
             loggedInToast();
         }
-    }, [data, navigate, responseError.data]);
+    }, [data, error, navigate, responseError.data]);
 
     const handleSubmit = (e) => {
         e.preventDefault();

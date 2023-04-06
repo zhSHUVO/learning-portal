@@ -15,6 +15,7 @@ import UpdateVideo from "./pages/admin/UpdateVideo";
 import Videos from "./pages/admin/Videos";
 import StudentLogin from "./pages/student/StudentLogin";
 import StudentReg from "./pages/student/StudentReg";
+import CoursePlayer from "./pages/student/CoursePlayer";
 
 function App() {
     return (
@@ -60,6 +61,7 @@ function App() {
                     {/* student */}
                     <Route path="/" element={<StudentLogin />} />
                     <Route path="/registration" element={<StudentReg />} />
+                    <Route path="/coursePlayer/:videoId" element={<CoursePlayer />} />
                 </Routes>
             </Router>
             <Toaster />

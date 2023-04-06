@@ -24,7 +24,7 @@ function StudentLogin(props) {
             console.log(error);
         }
         if (data?.accessToken && data?.user) {
-            navigate(`/${data.user.id}/1/coursePlayer`);
+            navigate("/coursePlayer/1");
         }
     }, [data, navigate, responseError, error]);
 
