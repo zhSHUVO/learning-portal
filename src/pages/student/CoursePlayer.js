@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import AssignmentModal from "../../Components/AssignmentModal";
 import CoursePlayerRelatedVideos from "../../Components/CoursePlayerRelatedVideos";
+import {
+    useGetAssignmentsQuery,
+    useGetSignleAssignmentQuery,
+} from "../../features/assignments/assignmentsApi";
 import {
     useGetSignleVideoQuery,
     useGetVideosQuery,
@@ -44,8 +49,81 @@ function CoursePlayer(props) {
         ));
     }
 
+    // loading assignment
+
+    const {
+        data: assignments,
+        isLoading: assignmentsIsLoading,
+        isError: assignmentsIsError,
+    } = useGetAssignmentsQuery();
+
+    const {
+        data: assignmentMarks,
+        isLoading: assignmentMarksIsLoading,
+        isError: assignmentMarksIsError,
+    } = useGetSignleAssignmentQuery();
+
+    const decideAssignmentButton = (assignment) => {
+        const { id: assignment_id } = assignment;
+        console.log(assignment_id);
+
+        if (
+            !assignmentMarksIsLoading &&
+            !assignmentMarksIsError &&
+            assignmentMarks?.length > 0
+        ) {
+            const cancelSubmission = assignmentMarks.find(
+                (assignment) =>
+                    assignment.assignment_id === assignment_id &&
+                    assignment.student_id === studentId
+            );
+            return cancelSubmission ? true : false;
+        }
+    };
+
+    const [selectedAssignment, setSelectedAssignment] = useState({});
+    const [assignmentModalOpened, setAssignmentModalOpened] = useState(false);
+
+    const controlAssignmentModal = (assignment) => {
+        setAssignmentModalOpened((prevState) => !prevState);
+        setSelectedAssignment(assignment);
+    };
+
+    let assignmentButton = null;
+
+    if (
+        !selectedVideoIsLoading &&
+        !selectedVideoIsError &&
+        !assignmentsIsLoading &&
+        !assignmentsIsError &&
+        assignments?.length > 0
+    ) {
+        const selectedAssignment = assignments.find(
+            (assignment) => assignment.video_id === selectedVideo.id
+        );
+
+        let decision;
+        if (selectedAssignment)
+            decision = decideAssignmentButton(selectedAssignment);
+
+        assignmentButton = selectedAssignment ? (
+            <button
+                onClick={() => controlAssignmentModal(selectedAssignment)}
+                disabled={decision}
+                className="px-3 font-bold py-1 border border-cyan text-cyan rounded-full text-sm hover:bg-cyan hover:text-primary"
+            >
+                এসাইনমেন্ট
+            </button>
+        ) : null;
+    }
+
     return (
         <div>
+            <AssignmentModal
+                open={assignmentModalOpened}
+                control={controlAssignmentModal}
+                assignment={selectedAssignment}
+            />
             <section className="py-6 bg-primary">
                 <div className="mx-auto max-w-7xl px-5 lg:px-0">
                     <div className="grid grid-cols-3 gap-2 lg:gap-8">
@@ -72,19 +150,7 @@ function CoursePlayer(props) {
                                 </h2>
 
                                 <div className="flex gap-4">
-                                    <a
-                                        href="#"
-                                        className="px-3 font-bold py-1 border border-cyan text-cyan rounded-full text-sm hover:bg-cyan hover:text-primary"
-                                    >
-                                        এসাইনমেন্ট
-                                    </a>
-
-                                    <a
-                                        href="./Quiz.html"
-                                        className="px-3 font-bold py-1 border border-cyan text-cyan rounded-full text-sm hover:bg-cyan hover:text-primary"
-                                    >
-                                        কুইজে অংশগ্রহণ করুন
-                                    </a>
+                                    {assignmentButton}
                                 </div>
                                 <p className="mt-4 text-sm text-slate-400 leading-6">
                                     {selectedVideo?.description}
