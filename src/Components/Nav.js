@@ -5,8 +5,8 @@ import logo from "../assets/image/learningportal.svg";
 import { userLoggedOut } from "../features/auth/authSlice";
 
 function Nav(props) {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [user, setUser] = useState("");
 
     useEffect(() => {
