@@ -1,7 +1,8 @@
 import React from "react";
 import { Toaster } from "react-hot-toast";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Nav from "./Components/Nav";
+import AdminPrivateRoute from "./Components/AdminPrivateRoute";
+import StudentPrivateRoute from "./Components/StudentPrivateRoute";
 import AddAssignment from "./pages/admin/AddAssignment";
 import AddVideo from "./pages/admin/AddVideo";
 import AdminLogin from "./pages/admin/AdminLogin";
@@ -21,50 +22,112 @@ import StudentReg from "./pages/student/StudentReg";
 function App() {
     return (
         <div>
-            <Nav />
             <Router>
                 <Routes>
                     {/* admin */}
                     <Route path="/admin" element={<AdminLogin />} />
-                    <Route path="/admin/dashboard" element={<Dashboard />} />
-
-                    <Route path="/admin/videos" element={<Videos />} />
-                    <Route path="/admin/addVideo" element={<AddVideo />} />
                     <Route
-                        path="/admin/video/update/:id"
-                        element={<UpdateVideo />}
+                        path="/admin/dashboard"
+                        element={
+                            <AdminPrivateRoute>
+                                <Dashboard />
+                            </AdminPrivateRoute>
+                        }
                     />
 
-                    <Route path="/admin/quizzes" element={<Quizzes />} />
+                    <Route
+                        path="/admin/videos"
+                        element={
+                            <AdminPrivateRoute>
+                                <Videos />
+                            </AdminPrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/admin/addVideo"
+                        element={
+                            <AdminPrivateRoute>
+                                <AddVideo />
+                            </AdminPrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/admin/video/update/:id"
+                        element={
+                            <AdminPrivateRoute>
+                                <UpdateVideo />
+                            </AdminPrivateRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/admin/quizzes"
+                        element={
+                            <AdminPrivateRoute>
+                                <Quizzes />
+                            </AdminPrivateRoute>
+                        }
+                    />
                     <Route
                         path="/admin/quiz/update/:id"
-                        element={<UpdateQuiz />}
+                        element={
+                            <AdminPrivateRoute>
+                                <UpdateQuiz />
+                            </AdminPrivateRoute>
+                        }
                     />
 
                     <Route
                         path="/admin/assignments"
-                        element={<Assignments />}
+                        element={
+                            <AdminPrivateRoute>
+                                <Assignments />
+                            </AdminPrivateRoute>
+                        }
                     />
                     <Route
                         path="/admin/addAssignment"
-                        element={<AddAssignment />}
+                        element={
+                            <AdminPrivateRoute>
+                                <AddAssignment />
+                            </AdminPrivateRoute>
+                        }
                     />
                     <Route
                         path="/admin/assignment/update/:id"
-                        element={<UpdateAssignment />}
+                        element={
+                            <AdminPrivateRoute>
+                                <UpdateAssignment />
+                            </AdminPrivateRoute>
+                        }
                     />
 
                     <Route
                         path="/admin/assignmentMark"
-                        element={<AssignmentMarks />}
+                        element={
+                            <AdminPrivateRoute>
+                                <AssignmentMarks />
+                            </AdminPrivateRoute>
+                        }
                     />
 
                     {/* student */}
-                    <Route path="/" element={<StudentLogin />} />
+                    <Route
+                        path="/"
+                        element={
+                            <StudentPrivateRoute>
+                                <StudentLogin />
+                            </StudentPrivateRoute>
+                        }
+                    />
                     <Route path="/registration" element={<StudentReg />} />
                     <Route
                         path="/courseplayer/:videoId"
-                        element={<CoursePlayer />}
+                        element={
+                            <StudentPrivateRoute>
+                                <CoursePlayer />
+                            </StudentPrivateRoute>
+                        }
                     />
                     <Route
                         path="/courseplayer/:videoId/quiz"

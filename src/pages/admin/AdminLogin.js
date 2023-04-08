@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import Nav from "../../Components/Nav";
 import logo from "../../assets/image/learningportal.svg";
 import { useLoginMutation } from "../../features/auth/authApi";
 
@@ -39,7 +38,6 @@ function AdminLogin(props) {
     };
     return (
         <>
-            <Nav />
             <section className="py-6 bg-primary h-screen grid place-items-center">
                 <div className="mx-auto max-w-md px-5 lg:px-0">
                     {" "}
