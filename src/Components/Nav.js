@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/image/learningportal.svg";
 import { userLoggedOut } from "../features/auth/authSlice";
 
@@ -16,6 +16,11 @@ function Nav(props) {
         }
     }, []);
 
+    let leaderboard;
+    if (user?.role === "student") {
+        leaderboard = <Link to="/leaderboard">Leaderboard</Link>;
+    }
+
     const handleLogout = () => {
         if (user?.role === "student") navigate(`/`);
         if (user?.role === "admin") navigate(`/admin`);
@@ -29,6 +34,7 @@ function Nav(props) {
             <div className="max-w-7xl px-5 lg:px-0 mx-auto flex justify-between py-3">
                 <img className="h-10" src={logo} alt="logo" />
                 <div className="flex items-center gap-3">
+                    {leaderboard}
                     <h2 className="font-bold">{user.name}</h2>
                     <button
                         onClick={handleLogout}

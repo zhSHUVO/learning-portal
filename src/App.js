@@ -15,6 +15,7 @@ import UpdateQuiz from "./pages/admin/UpdateQuiz";
 import UpdateVideo from "./pages/admin/UpdateVideo";
 import Videos from "./pages/admin/Videos";
 import CoursePlayer from "./pages/student/CoursePlayer";
+import LeaderBoard from "./pages/student/LeaderBoard";
 import Quiz from "./pages/student/Quiz";
 import StudentLogin from "./pages/student/StudentLogin";
 import StudentReg from "./pages/student/StudentReg";
@@ -131,7 +132,19 @@ function App() {
                     />
                     <Route
                         path="/courseplayer/:videoId/quiz"
-                        element={<Quiz />}
+                        element={
+                            <StudentPrivateRoute>
+                                <Quiz />
+                            </StudentPrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/leaderboard"
+                        element={
+                            <StudentPrivateRoute>
+                                <LeaderBoard />
+                            </StudentPrivateRoute>
+                        }
                     />
                 </Routes>
             </Router>
