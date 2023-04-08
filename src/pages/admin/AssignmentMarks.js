@@ -1,6 +1,7 @@
 import React from "react";
 import SingleAssignmentMark from "../../Components/SingleAssignmentMark";
 import { useGetAssignmentMarksQuery } from "../../features/assignmentMarks/assignmentMarksApi";
+import Nav from "../../Components/Nav";
 
 function AssignmentMarks() {
     const {
@@ -46,24 +47,27 @@ function AssignmentMarks() {
     const sent = total - pending;
 
     return (
-        <section className="py-6 bg-primary">
-            <div className="mx-auto max-w-full px-5 lg:px-20">
-                <div className="px-3 py-20 bg-opacity-10">
-                    <ul className="assignment-status">
-                        <li>
-                            Total <span>{total}</span>
-                        </li>
-                        <li>
-                            Pending <span>{pending}</span>
-                        </li>
-                        <li>
-                            Mark Sent <span>{sent}</span>
-                        </li>
-                    </ul>
-                    <div className="overflow-x-auto mt-4">{content}</div>
+        <>
+            <Nav />
+            <section className="py-6 bg-primary">
+                <div className="mx-auto max-w-full px-5 lg:px-20">
+                    <div className="px-3 py-20 bg-opacity-10">
+                        <ul className="assignment-status">
+                            <li>
+                                Total <span>{total}</span>
+                            </li>
+                            <li>
+                                Pending <span>{pending}</span>
+                            </li>
+                            <li>
+                                Mark Sent <span>{sent}</span>
+                            </li>
+                        </ul>
+                        <div className="overflow-x-auto mt-4">{content}</div>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
     );
 }
 

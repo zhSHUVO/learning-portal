@@ -1,6 +1,7 @@
 import React from "react";
 import SingleQuiz from "../../Components/SingleQuiz";
 import { useGetQuizzesQuery } from "../../features/quizzes/quizzesApi";
+import Nav from "../../Components/Nav";
 
 function Quizzes(props) {
     const { data: quizzes, isLoading, isError, error } = useGetQuizzesQuery();
@@ -28,7 +29,8 @@ function Quizzes(props) {
         );
     }
 
-    return (
+    return (<>
+        <Nav />
         <section className="py-6 bg-primary">
             <div className="mx-auto max-w-full px-5 lg:px-20">
                 <div className="px-3 py-20 bg-opacity-10">
@@ -38,7 +40,7 @@ function Quizzes(props) {
                     <div className="overflow-x-auto mt-4">{content}</div>
                 </div>
             </div>
-        </section>
+        </section></>
     );
 }
 

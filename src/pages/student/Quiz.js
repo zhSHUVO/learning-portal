@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetQuizzesQuery } from "../../features/quizzes/quizzesApi";
 import { useAddQuizMarkMutation } from "../../features/quizzesMark/quizzesMarkApi";
 import { useGetSignleVideoQuery } from "../../features/videos/videosApi";
+import Nav from "../../Components/Nav";
 
 function Quiz(props) {
     const navigate = useNavigate();
@@ -202,7 +203,8 @@ function Quiz(props) {
             </>
         ));
     }
-    return (
+    return (<>
+        <Nav />
         <section className="py-6 bg-primary">
             <div className="mx-auto max-w-7xl px-5 lg:px-0">
                 <div className="mb-8">
@@ -222,7 +224,7 @@ function Quiz(props) {
                     Submit
                 </button>
             </div>
-        </section>
+        </section></>
     );
 }
 

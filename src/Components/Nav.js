@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/image/learningportal.svg";
 import { userLoggedOut } from "../features/auth/authSlice";
 
 function Nav(props) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [user, setUser] = useState("");
 
     useEffect(() => {
         if (localStorage.getItem("auth") !== null) {
             const { user } = JSON.parse(localStorage.getItem("auth"));
-            setUser(user.name);
+            setUser(user);
         }
     }, []);
 
     const handleLogout = () => {
+        if (user?.role === "student") navigate(`/`);
+        if (user?.role === "admin") navigate(`/admin`);
+
         dispatch(userLoggedOut());
         window.localStorage.clear();
     };
@@ -24,7 +29,7 @@ function Nav(props) {
             <div className="max-w-7xl px-5 lg:px-0 mx-auto flex justify-between py-3">
                 <img className="h-10" src={logo} alt="logo" />
                 <div className="flex items-center gap-3">
-                    <h2 className="font-bold">{user}</h2>
+                    <h2 className="font-bold">{user.name}</h2>
                     <button
                         onClick={handleLogout}
                         className="flex gap-2 items-center px-4 py-1 rounded-full text-sm transition-all bg-red-600 hover:bg-red-700 font-medium"

@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import UpdateAssignmentForm from "../../Components/UpdateAssignmentForm";
 import { useGetSignleAssignmentQuery } from "../../features/assignments/assignmentsApi";
+import Nav from "../../Components/Nav";
 
 function UpdateAssignment() {
     const assignmentId = useParams();
@@ -21,12 +22,15 @@ function UpdateAssignment() {
     }
 
     return (
-        <section className="py-6 bg-primary h-screen place-items-center">
-            <div className="mx-auto max-w-md px-5 lg:px-0">
-                <h1 className="text-center">Update Assignment</h1>
-                {content}
-            </div>
-        </section>
+        <>
+            <Nav />
+            <section className="py-6 bg-primary h-screen place-items-center">
+                <div className="mx-auto max-w-md px-5 lg:px-0">
+                    <h1 className="text-center">Update Assignment</h1>
+                    {content}
+                </div>
+            </section>
+        </>
     );
 }
 

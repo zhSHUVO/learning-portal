@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Nav from "../../Components/Nav";
 import SingleVideo from "../../Components/SingleVideo";
 import { useGetVideosQuery } from "../../features/videos/videosApi";
 
@@ -32,21 +33,24 @@ function Videos() {
     }
 
     return (
-        <section className="py-6 bg-primary">
-            <div className="mx-auto max-w-full px-5 lg:px-20">
-                <div className="px-3 py-20 bg-opacity-10">
-                    <div className="w-full flex">
-                        <button
-                            onClick={(e) => navigate("/admin/addVideo")}
-                            className="btn ml-auto"
-                        >
-                            Add Video
-                        </button>
+        <>
+            <Nav />
+            <section className="py-6 bg-primary">
+                <div className="mx-auto max-w-full px-5 lg:px-20">
+                    <div className="px-3 py-20 bg-opacity-10">
+                        <div className="w-full flex">
+                            <button
+                                onClick={(e) => navigate("/admin/addVideo")}
+                                className="btn ml-auto"
+                            >
+                                Add Video
+                            </button>
+                        </div>
+                        <div className="overflow-x-auto mt-4">{content}</div>
                     </div>
-                    <div className="overflow-x-auto mt-4">{content}</div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
     );
 }
 

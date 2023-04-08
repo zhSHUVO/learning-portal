@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AssignmentModal from "../../Components/AssignmentModal";
 import CoursePlayerRelatedVideos from "../../Components/CoursePlayerRelatedVideos";
+import Nav from "../../Components/Nav";
 import { useGetAssignmentMarksQuery } from "../../features/assignmentMarks/assignmentMarksApi";
 import { useGetAssignmentsQuery } from "../../features/assignments/assignmentsApi";
 import { useGetQuizzesQuery } from "../../features/quizzes/quizzesApi";
@@ -173,6 +174,7 @@ function CoursePlayer(props) {
 
     return (
         <div>
+            <Nav />
             <AssignmentModal
                 open={assignmentModalOpened}
                 control={controlAssignmentModal}

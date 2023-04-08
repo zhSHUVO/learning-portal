@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import logo from "../../assets/image/learningportal.svg";
 import { useLoginMutation } from "../../features/auth/authApi";
 
 function StudentLogin(props) {
@@ -37,9 +38,12 @@ function StudentLogin(props) {
     return (
         <section className="py-6 bg-primary h-screen grid place-items-center">
             <div className="mx-auto max-w-md px-5 lg:px-0">
-                <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-100">
-                    Sign into Student Account
-                </h2>
+                <div>
+                    <img className="h-12 mx-auto" src={logo} alt="logo" />
+                    <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-100">
+                        Sign into Student Account
+                    </h2>
+                </div>
 
                 <form
                     className="mt-8 space-y-6"

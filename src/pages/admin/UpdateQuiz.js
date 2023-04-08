@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import Nav from "../../Components/Nav";
 import UpdateQuizForm from "../../Components/UpdateQuizForm";
 import { useGetSingleQuizQuery } from "../../features/quizzes/quizzesApi";
 
@@ -20,12 +21,15 @@ function UpdateQuiz(props) {
         content = <UpdateQuizForm quiz={quiz} />;
     }
     return (
-        <section className="py-6 bg-primary h-screen place-items-center">
-            <div className="mx-auto max-w-md px-5 lg:px-0">
-                <h1 className="text-center">Update Quiz</h1>
-                {content}
-            </div>
-        </section>
+        <>
+            <Nav />
+            <section className="py-6 bg-primary h-screen place-items-center">
+                <div className="mx-auto max-w-md px-5 lg:px-0">
+                    <h1 className="text-center">Update Quiz</h1>
+                    {content}
+                </div>
+            </section>
+        </>
     );
 }
 
