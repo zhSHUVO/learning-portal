@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AssignmentModal from "../../Components/AssignmentModal";
 import CoursePlayerRelatedVideos from "../../Components/CoursePlayerRelatedVideos";
-import {
-    useGetAssignmentsQuery,
-    useGetSignleAssignmentQuery,
-} from "../../features/assignments/assignmentsApi";
+import { useGetAssignmentMarksQuery } from "../../features/assignmentMarks/assignmentMarksApi";
+import { useGetAssignmentsQuery } from "../../features/assignments/assignmentsApi";
+import { useGetQuizzesQuery } from "../../features/quizzes/quizzesApi";
+import { useGetQuizzesMarksQuery } from "../../features/quizzesMark/quizzesMarkApi";
 import {
     useGetSignleVideoQuery,
     useGetVideosQuery,
 } from "../../features/videos/videosApi";
 
 function CoursePlayer(props) {
+    const navigate = useNavigate();
     const { videoId } = useParams();
     const [studentId, setStudentId] = useState("");
 
@@ -61,12 +62,10 @@ function CoursePlayer(props) {
         data: assignmentMarks,
         isLoading: assignmentMarksIsLoading,
         isError: assignmentMarksIsError,
-    } = useGetSignleAssignmentQuery();
+    } = useGetAssignmentMarksQuery();
 
     const decideAssignmentButton = (assignment) => {
         const { id: assignment_id } = assignment;
-        console.log(assignment_id);
-
         if (
             !assignmentMarksIsLoading &&
             !assignmentMarksIsError &&
@@ -92,7 +91,6 @@ function CoursePlayer(props) {
     let assignmentButton = null;
 
     if (
-        !selectedVideoIsLoading &&
         !selectedVideoIsError &&
         !assignmentsIsLoading &&
         !assignmentsIsError &&
@@ -103,8 +101,9 @@ function CoursePlayer(props) {
         );
 
         let decision;
-        if (selectedAssignment)
+        if (selectedAssignment) {
             decision = decideAssignmentButton(selectedAssignment);
+        }
 
         assignmentButton = selectedAssignment ? (
             <button
@@ -113,6 +112,61 @@ function CoursePlayer(props) {
                 className="px-3 font-bold py-1 border border-cyan text-cyan rounded-full text-sm hover:bg-cyan hover:text-primary"
             >
                 এসাইনমেন্ট
+            </button>
+        ) : null;
+    }
+
+    // quiz
+    const {
+        data: quizzes,
+        isLoading: quizzesIsLoading,
+        isError: quizzesIsError,
+    } = useGetQuizzesQuery();
+
+    const {
+        data: quizMarks,
+        isLoading: quizMarksIsLoading,
+        isError: quizMarksIsError,
+    } = useGetQuizzesMarksQuery();
+
+    const decideQuizButton = (quiz) => {
+        const { video_id: quizVideoId } = quiz;
+
+        if (!quizMarksIsLoading && !quizMarksIsError && quizMarks?.length > 0) {
+            const cancelSubmission = quizMarks.find(
+                (quiz) =>
+                    quiz.video_id === quizVideoId &&
+                    quiz.student_id === studentId
+            );
+            return cancelSubmission ? true : false;
+        }
+    };
+
+    let quizButton = null;
+
+    if (
+        !selectedVideoIsLoading &&
+        !selectedVideoIsError &&
+        !quizzesIsLoading &&
+        !quizzesIsError &&
+        quizzes?.length > 0
+    ) {
+        const selectedQuiz = quizzes.find(
+            (quiz) => quiz.video_id === selectedVideo.id
+        );
+
+        let decision;
+        if (selectedQuiz) decision = decideQuizButton(selectedQuiz);
+
+        quizButton = selectedQuiz ? (
+            <button
+                disabled={decision}
+                onClick={() =>
+                    navigate(`/courseplayer/${selectedVideo.id}/quiz`)
+                }
+                className="px-3 font-bold py-1 border border-cyan text-cyan rounded-full text-sm hover:bg-cyan hover:text-primary"
+            >
+                কুইজে অংশগ্রহণ করুন
             </button>
         ) : null;
     }
@@ -150,7 +204,7 @@ function CoursePlayer(props) {
                                 </h2>
 
                                 <div className="flex gap-4">
-                                    {assignmentButton}
+                                    {assignmentButton} {quizButton}
                                 </div>
                                 <p className="mt-4 text-sm text-slate-400 leading-6">
                                     {selectedVideo?.description}

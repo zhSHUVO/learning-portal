@@ -6,7 +6,7 @@ function CoursePlayerRelatedVideos({ video }) {
 
     return (
         <div
-            onClick={() => navigate(`/coursePlayer/${video.id}`)}
+            onClick={() => navigate(`/courseplayer/${video.id}`)}
             className="w-full flex flex-row gap-2 cursor-pointer hover:bg-slate-900 p-2 py-3"
         >
             <svg
